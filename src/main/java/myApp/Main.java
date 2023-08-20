@@ -50,7 +50,12 @@ public class Main {
                     long start  = System.currentTimeMillis();
                     ResultSet rs = statement.executeQuery(Util.conditionalSelectQuery());
                     long time = System.currentTimeMillis() - start;
-                    Util.printQueryResult(rs);
+                    if(args.length > 1){
+                        int limit = Integer.parseInt(args[1]);
+                        Util.printQueryResult(rs, limit);
+                    }else {
+                        Util.printQueryResult(rs, 100);
+                    }
                     System.out.println("Select took " + (time) + " milliseconds.");
                     return;
                 }else if(args[0].equals("6")){
@@ -64,12 +69,12 @@ public class Main {
                 System.out.println(e.getMessage());
             }
         }
-        System.out.println("Wrong format of arguments. Please use one of these options:\n" +
-                "\t1 - create table\n" +
-                "\t2 + full_name separated by '_' + birth_date formatted as 'YYYY-MM-DD' + gender as 'female'/'male' - insert person\n" +
-                "\t3 + LIMIT (optional) - select LIMIT rows distinct full_names and birth_dates (default value of LIMIT is 100)\n" +
-                "\t4 - insert million random rows and 100 starting with f\n" +
-                "\t5 - select males starting with 'F'" +
-                "\t6 - drop table");
+        System.out.println("""
+                Wrong format of arguments. Please use one of these options:
+                \t1 - create table
+                \t2 + full_name separated by '_' + birth_date formatted as 'YYYY-MM-DD' + gender as 'female'/'male' - insert person
+                \t3 + LIMIT (optional) - select LIMIT rows distinct full_names and birth_dates (default value of LIMIT is 100)
+                \t4 - insert million random rows and 100 starting with f
+                \t5 + LIMIT (optional) - select males starting with 'F' and print LIMIT of them\t6 - drop table""");
     }
 }

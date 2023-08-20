@@ -131,6 +131,19 @@ public class Util {
             e.printStackTrace();
         }
     }
+    public static void printQueryResult(ResultSet rs, int limit) {
+        System.out.println("Print only first " + limit + " rows.");
+        System.out.printf("|%-50s|%-20s|%-10s|%-10s|%n", "Full name", "Birth date", "Gender", "Age");
+        int i = 0;
+        try {
+            while (rs.next() && i < limit) {
+                i++;
+                printQueryRow(rs);
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     private static void printQueryRow(ResultSet rs) {
         try {
@@ -152,4 +165,6 @@ public class Util {
             e.printStackTrace();
         }
     }
+
+
 }
